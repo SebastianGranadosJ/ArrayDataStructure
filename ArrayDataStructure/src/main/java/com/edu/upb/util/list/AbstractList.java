@@ -1,76 +1,126 @@
 package com.edu.upb.util.list;
 
 import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.function.ToIntFunction;
 
 import com.edu.upb.util.collection.Collection;
 import com.edu.upb.util.iterator.Iterator;
 
-public class AbstractList<E> implements List<E>, Cloneable, Collection<E>{
+public abstract class AbstractList<E> implements List<E>, Cloneable, Collection<E>{
+    protected int amtData;
+    @Override
+    public abstract boolean add(E element) ;
 
     @Override
-    public boolean add(E element) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'add'");
-    }
+    public abstract boolean add(E[] array);
 
     @Override
-    public boolean add(E[] array) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'add'");
-    }
+    public abstract boolean add(Collection<E> collection);
 
     @Override
-    public boolean add(Collection<E> collection) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'add'");
-    }
+    public abstract boolean addFirst(E element);
 
     @Override
-    public boolean addFirst(E element) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addFirst'");
-    }
+    public abstract boolean addFirst(E[] array);
 
     @Override
-    public boolean addFirst(E[] array) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addFirst'");
-    }
-
-    @Override
-    public boolean addFirst(Collection<E> collection) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addFirst'");
-    }
+    public abstract boolean addFirst(Collection<E> collection);
 
     @Override
     public E peek() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'peek'");
+        try{    
+
+            Iterator<E> iter = this.iterator();
+
+
+            if(iter.hasNext()){
+                return iter.next();
+            }
+            return null;
+
+        }catch(Exception e){
+            return null;
+        }
     }
 
     @Override
     public E peekLast() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'peekLast'");
+        try{    
+
+            Iterator<E> iter = this.iterator();
+            while(iter.hasNext()){
+                iter.next();
+            }
+
+            return iter.next();
+            
+        }catch(Exception e){
+            return null;
+        }
     }
 
     @Override
     public E[] peekArray(int n) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'peekArray'");
+        try{    
+            @SuppressWarnings("unchecked")
+
+            E[] array  = (E[]) new Object[amtData];
+            int cnt = 0;
+            Iterator<E> iter = this.iterator();
+            
+            for(int ii = 0; ii < n; ii++){
+                if(iter.hasNext()){
+                    array[cnt] = iter.next();
+                    cnt++;
+                }
+            }
+
+            return array;
+            
+        }catch(Exception e){
+            return null;
+        }
+        
     }
 
     @Override
     public E[] peekLastArray(int n) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'peekLastArray'");
+        try{    
+            @SuppressWarnings("unchecked")
+
+            E[] array  = (E[]) new Object[amtData];
+            int cnt = 0;
+            Iterator<E> iter = this.iterator();
+
+            int toPass = this.amtData - n;
+
+            for(int ii = 0; ii < toPass; ii++){
+                if(iter.hasNext()){
+                    iter.next();
+                }
+            }
+
+            
+            for(int ii = 0; ii < n; ii++){
+                if(iter.hasNext()){
+                    array[cnt] = iter.next();
+                    cnt++;
+                }
+            }
+
+            return array;
+            
+        }catch(Exception e){
+            return null;
+        }
     }
 
     @Override
     public List<E> peekCollection(int n) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'peekCollection'");
+        throw new UnsupportedOperationException("Unimplemented method 'peekLastCollection'");
+       // ASK TO LENNY 
+
     }
 
     @Override
@@ -80,81 +130,171 @@ public class AbstractList<E> implements List<E>, Cloneable, Collection<E>{
     }
 
     @Override
-    public E poll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'poll'");
-    }
+    public abstract E poll();
 
     @Override
-    public E pollLast() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'pollLast'");
-    }
+    public abstract E pollLast();
 
     @Override
-    public E[] pollArray(int n) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'pollArray'");
-    }
+    public abstract E[] pollArray(int n);
 
     @Override
-    public E[] pollLastArray(int n) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'pollLastArray'");
-    }
+    public abstract E[] pollLastArray(int n);
+
 
     @Override
-    public void forEach(Function<E, Void> action) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'forEach'");
-    }
+    public abstract List<E> pollCollection(int n);
 
     @Override
-    public Iterator<E> iterator() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'iterator'");
-    }
+    public abstract List<E> pollLastCollection(int n);
 
     @Override
-    public boolean clear() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'clear'");
-    }
+    public abstract boolean remove(E element);
 
     @Override
-    public boolean contains(E element) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'contains'");
-    }
+    public abstract boolean remove(E[] array);
 
     @Override
+    public abstract boolean remove(Collection<E> collection);
+
+    @Override
+    public abstract boolean remove(Predicate<E> filter);
+
+    @Override
+    public abstract boolean replace(E element, E newElement, Predicate<E> comparator);
+
+    @Override
+    public abstract boolean replace(E[] element, E[] newElement, Predicate<E> comparator);
+
+    @Override
+    public abstract boolean replace(Collection<E> collection, Collection<E> newCollection, Predicate<E> comparator);
+
+    @Override
+    public abstract boolean retain(Collection<E> collection);
+
+    @Override
+    public abstract boolean set(E index, E element);
+
+    @Override
+    public abstract boolean sort(ToIntFunction<E> toInt);
+
+    @Override
+    public abstract List<E> subList(E from, E to); // ASK
+
+    @Override
+    public E[] toArray() {
+        try{    
+            @SuppressWarnings("unchecked")
+
+            E[] array  = (E[]) new Object[amtData];
+            int cnt = 0;
+            Iterator<E> iter = this.iterator();
+            
+           while(iter.hasNext()){
+                array[cnt] = iter.next();
+                cnt++;
+           }
+           return array;
+            
+        }catch(Exception e){
+            return null;
+        }
+    }
+    
+    public int size(){
+        return amtData;
+    }
+
+    public void forEach(Function<E, Void> action){
+        Iterator<E> iter = this.iterator();
+
+        while(iter.hasNext()){
+            action.apply(iter.next());
+        }
+
+      
+    }
+
+
+    public boolean contains(E element){
+
+        try{
+            Iterator<E> iter = this.iterator();
+
+            while(iter.hasNext()){
+    
+                if(iter.next() == element){
+                    return true;
+                }
+    
+            }
+            return false;
+        }catch(Exception e){
+            return false;
+        }
+        
+    }
+
+
     public boolean contains(E[] array) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'contains'");
+
+        try{
+            for(E element: array ){
+
+                if(this.contains(element) == false){
+                    return false;
+                }
+    
+            }
+            return true;
+
+        }catch(Exception e){
+            return false;
+        }
+
     }
 
-    @Override
+
     public boolean contains(Collection<E> collection) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'contains'");
+
+        try{
+            Iterator<E> iter = collection.iterator();
+
+            while(iter.hasNext()){
+    
+                if(this.contains(iter.next()) == false){
+    
+                    return false;
+                }
+            }
+    
+            return true;
+
+        }catch(Exception e){
+            return false;
+        }
+        
     }
 
-    @Override
-    public boolean isEmpty() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isEmpty'");
-    }
+    public boolean isEmpty(){
 
-    @Override
-    public boolean reverse() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'reverse'");
-    }
+        try{
+            Iterator<E> iter = this.iterator();
 
-    @Override
-    public int size() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'size'");
+            while(iter.hasNext()){
+
+                if(iter.next() != null){
+
+                    return false;
+                }
+            }
+
+            return true;
+
+        }catch(Exception e){
+            return false;
+        }
+        
     }
     
 }

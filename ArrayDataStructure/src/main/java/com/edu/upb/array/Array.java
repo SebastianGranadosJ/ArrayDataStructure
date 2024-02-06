@@ -1,6 +1,5 @@
 package com.edu.upb.array;
 
-import java.util.Arrays;
 import java.util.function.Predicate;
 
 import com.edu.upb.util.array.AbstractArray;
@@ -30,10 +29,16 @@ public class Array<E> extends AbstractArray<E>{
      * @return return the index of the first occurrence of null, if there isnt any null will return -1.
      */
     private int getAvailableIndex(){
-        for(int ii = 0; ii < elements.length; ii++){
-            if(elements[ii] == null){
-                return ii;
+        try{
+
+            for(int ii = 0; ii < elements.length; ii++){
+                if(elements[ii] == null){
+                    return ii;
+                }
             }
+
+        }catch(Exception e){
+            return -1;
         }
         return -1;
     }
@@ -66,73 +71,106 @@ public class Array<E> extends AbstractArray<E>{
 
     @Override
     public boolean add(E element) {
-        // Ask about this, when return true and false
-
-        int index = getAvailableIndex();
-        if( index != -1){
+        
+        try{
+            int index = getAvailableIndex();
             elements[index] = element;
+            this.amtData++;
             return true;
+        }catch(Exception e){
+            return false;
         }
-        return false;
         
     }
-
+    @Override
+    public int indexOf(E element){
+    
+        for(int ii = 0; ii < elements.length ; ii++){
+            if(elements[ii] == element){
+                return ii;
+            }
+        }
+            
+        return -1;
+    } 
+    @Override
+    public int lastIndexOf(E element){
+        int index = -1;
+        
+        for(int ii = 0; ii < elements.length ; ii++){
+            if(elements[ii] == element){
+                index = ii;
+            }
+        }
+            
+        return index;
+    } 
     @Override
     public boolean add(int index, E[] array) {
-        boolean ret = false;
+        
 
-        if(index < 0){
-            return ret;
-        }
-
-        for(E arrayElement: array){
-            if(index < elements.length){
-                elements[index] = arrayElement;
-                ret = true;
-                index++;
+        try{
+            boolean ret = false;
+            for(E arrayElement: array){
+                if(index < elements.length){
+                    elements[index] = arrayElement;
+                    ret = true;
+                    this.amtData++;
+                    index++;
+                }
+    
             }
-
+            return ret;
+        }catch(Exception e){
+            return false;
         }
-
-        return ret;
     }
 
     @Override
     public boolean add(int index, Collection<E> collection) {
-        Iterator<E> iter = collection.iterator();
-        boolean ret = false;
+        
 
-        if(index < 0){
-            return ret;
-        }
-
-        while(iter.hasNext()){
-            if(index < elements.length){
-                elements[index] = iter.next();
-                index++;
-                ret = true;
+        try{
+            Iterator<E> iter = collection.iterator();
+            boolean ret = false;
+            if(index < 0){
+                return ret;
             }
+    
+            while(iter.hasNext()){
+                if(index < elements.length){
+                    elements[index] = iter.next();
+                    this.amtData++;
+                    index++;
+                    ret = true;
+                }
+            }
+            return ret;
+        }catch(Exception e){
+            return false;
         }
-        return ret;
+        
     }
 
     @Override
     public void defragment() {
         E[] arrayCopy = (E[]) new Object[amtData];
         int cntCopy = 0;
-        
-        for(int ii = 0; ii < elements.length; ii++){
-            if(elements[ii] != null){
-                arrayCopy[cntCopy] = elements[ii];
-                cntCopy++;
+      
+            for(int ii = 0; ii < elements.length; ii++){
+                if(elements[ii] != null){
+                    arrayCopy[cntCopy] = elements[ii];
+                    cntCopy++;
+                }
             }
-        }
-
-        this.clear();
-
-        for(int ii = 0; ii < elements.length; ii++){
-            elements[ii] = arrayCopy[ii];
-        }
+    
+            this.clear();
+    
+            for(int ii = 0; ii < elements.length; ii++){
+                elements[ii] = arrayCopy[ii];
+            }
+        
+        
 
     }
 
@@ -143,127 +181,180 @@ public class Array<E> extends AbstractArray<E>{
 
     @Override
     public boolean remove(int index) {
-        if(index < elements.length && index >= 0){
-            elements[index] = null;
-            return true;
-        }
 
-        return false;
+        try{
+            if(index < elements.length && index >= 0){
+                elements[index] = null;
+                return true;
+            }
+            return false;
+        }catch(Exception e){
+            return false;
+        }
+        
+       
     }
 
     @Override//ASK ABOUT THIS ONE
     public boolean remove(Predicate<E> filter) {
-        boolean ret = false;
 
-        for(int ii = 0; ii < elements.length; ii++){
+        try{
+            boolean ret = false;
 
-            if(filter.test(elements[ii])){
-                elements[ii] = null;
+            for(int ii = 0; ii < elements.length; ii++){
+    
+                if(filter.test(elements[ii])){
+                    elements[ii] = null;
+                    ret = true;
+                }
+                
             }
-            
+            return ret;
+        }catch(Exception e){
+            return false;
         }
-
-
-        return ret;
+       
     }
 
     @Override
     public boolean remove(int from, int to) {
-        int top;
-        boolean ret = false;
-
-        if(to > elements.length){
-            top = elements.length;
+       
+        try{
+            int top;
+            boolean ret = false;
+            if(to > elements.length){
+                top = elements.length;
+            }
+            else{
+                top = to;
+            }
+    
+            for(int ii = from; ii < top; ii++){
+                elements[ii] = null;
+                ret = true;
+            }
+    
+            return ret;
+        }catch(Exception e){
+            return false;
         }
-        else{
-            top = to;
-        }
 
-        for(int ii = from; ii < top; ii++){
-            elements[ii] = null;
-            ret = true;
-        }
-
-        return ret;
+        
         
     }
 
     @Override
     public boolean dimension(int newDimension){ // Ask about the return
 
-        boolean rt = false;
-        E[] arrayCopy = (E[]) new Object[amtData];
-        int top;
-        if(newDimension == amtData || newDimension <= 0){
+        try{
+            boolean rt = false;
+            E[] arrayCopy = (E[]) new Object[amtData];
+            int top;
+            if(newDimension == amtData || newDimension <= 0){
+                return false;
+            }
+
+            
+            for(int ii = 0; ii < elements.length; ii++){
+                arrayCopy[ii] = elements[ii];
+            }
+
+            this.elements = (E[]) new Object[newDimension];
+
+            if(arrayCopy.length > elements.length){
+                top = elements.length;
+            }else{
+                top= arrayCopy.length;
+            }
+
+            for(int ii = 0; ii < top; ii++){
+                elements[ii] = arrayCopy[ii];
+            }
+
+            if(elements.length == newDimension){
+                amtData = newDimension;
+                rt = true;
+            }
+            return rt;      
+
+        }catch(Exception e){
             return false;
         }
-
-        
-        for(int ii = 0; ii < elements.length; ii++){
-            arrayCopy[ii] = elements[ii];
-        }
-
-        this.elements = (E[]) new Object[newDimension];
-
-        if(arrayCopy.length > elements.length){
-            top = elements.length;
-        }else{
-            top= arrayCopy.length;
-        }
-
-        for(int ii = 0; ii < top; ii++){
-            elements[ii] = arrayCopy[ii];
-        }
-
-        if(elements.length == newDimension){
-            amtData = newDimension;
-            rt = true;
-        }
-
-        return rt;
     }
-
     @Override
     public boolean set(int index, E element) {
-        if( index < elements.length && index >= 0){
-            elements[index] = element;
-            return true;
+        try{
+            if( index < elements.length && index >= 0){
+                elements[index] = element;
+                return true;
+            }
+            return false;
+        }catch(Exception e){
+            return false;
         }
-        return false;
+        
     }
 
     @Override // ask about this one
     public boolean clear() {
-        boolean rt = false;
-        for(int ii = 0 ; ii < elements.length; ii++){
-            elements[ii] = null;
-            rt = true;
+        try{
+            boolean rt = false;
+            for(int ii = 0 ; ii < elements.length; ii++){
+                elements[ii] = null;
+                rt = true;
+                amtData  = 0;
+            }
+            return rt;
+        }catch(Exception e){
+            return false;
         }
-        return rt;
+        
     }
 
     // ask about this one return
     @Override
     public boolean reverse() {
 
-        boolean rt = false;
-        E[] arrayCopy = (E[]) new Object[amtData];
-        
-        for(int ii = 0; ii < elements.length; ii++){
-            arrayCopy[ii] = elements[elements.length - 1 - ii];
+        try{
+            boolean rt = false;
+            E[] arrayCopy = (E[]) new Object[amtData];
+            
+            for(int ii = 0; ii < elements.length; ii++){
+                arrayCopy[ii] = elements[elements.length - 1 - ii];
+            }
+
+            for(int ii = 0; ii < elements.length; ii++){
+                elements[ii] = arrayCopy[ii];
+                rt = true;
+            }
+
+            return rt;
+        }catch(Exception e){
+            return false;
         }
 
-        for(int ii = 0; ii < elements.length; ii++){
-            elements[ii] = arrayCopy[ii];
-            rt = true;
-        }
-
-        return rt;
     }
+        
+        
     
     @Override
     public String toString() {
-        return "Array [elements=" + Arrays.toString(elements) + "]";
-    }
+ 
+            String r = "[";
+            int noComma = elements.length - 1;
     
+            for (int ii = 0; ii < elements.length; ii++){
+                r += elements[ii];
+    
+                if(ii < noComma){
+                    r+= ", ";
+                }
+                
+            }
+            r+= "]";
+    
+            return r;
+        
+        
+    }
 }

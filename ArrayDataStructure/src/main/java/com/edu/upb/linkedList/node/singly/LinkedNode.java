@@ -17,6 +17,7 @@ public class LinkedNode<E> extends AbstractNode<E>{
 
     public void setNext(LinkedNode<E> next){
         this.next = next;
+
     }
 
     public LinkedNode<E> getNext(){

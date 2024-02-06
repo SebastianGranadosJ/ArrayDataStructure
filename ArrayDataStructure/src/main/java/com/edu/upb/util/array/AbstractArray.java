@@ -43,34 +43,9 @@ public abstract class AbstractArray<E> implements Collection<E>, Array<E> {
 
     public abstract E get(int index); // in array
 
-    public int indexOf(E element){
-        int index = 0;
-        Iterator<E> iter = this.iterator();
+    public abstract int indexOf(E element);
 
-        while(iter.hasNext()){
-            if(element == iter.next()){
-                return index;
-            }
-            index++;
-        }
-
-        return -1;
-    } 
-
-    public int lastIndexOf(E element){
-        int index = 0;
-        int returnIndex = -1;
-        Iterator<E> iter = this.iterator();
-
-        while(iter.hasNext()){
-            if(element == iter.next()){
-                returnIndex = index;
-            }
-            index++;
-        }
-
-        return returnIndex;
-    } 
+    public abstract int lastIndexOf(E element);
 
     public abstract boolean remove(int index); // in array
 
