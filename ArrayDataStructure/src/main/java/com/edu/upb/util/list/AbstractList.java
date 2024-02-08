@@ -9,6 +9,10 @@ import com.edu.upb.util.iterator.Iterator;
 
 public abstract class AbstractList<E> implements List<E>, Cloneable, Collection<E>{
     protected int amtData;
+
+    protected AbstractList(){
+        amtData = 0;
+    }
     @Override
     public abstract boolean add(E element) ;
 
@@ -45,20 +49,7 @@ public abstract class AbstractList<E> implements List<E>, Cloneable, Collection<
     }
 
     @Override
-    public E peekLast() {
-        try{    
-
-            Iterator<E> iter = this.iterator();
-            while(iter.hasNext()){
-                iter.next();
-            }
-
-            return iter.next();
-            
-        }catch(Exception e){
-            return null;
-        }
-    }
+    public abstract E peekLast();
 
     @Override
     public E[] peekArray(int n) {
@@ -79,7 +70,9 @@ public abstract class AbstractList<E> implements List<E>, Cloneable, Collection<
             return array;
             
         }catch(Exception e){
-            return null;
+            @SuppressWarnings("unchecked")
+            E[] array  = (E[]) new Object[amtData];
+            return array;
         }
         
     }
@@ -117,17 +110,10 @@ public abstract class AbstractList<E> implements List<E>, Cloneable, Collection<
     }
 
     @Override
-    public List<E> peekCollection(int n) {
-        throw new UnsupportedOperationException("Unimplemented method 'peekLastCollection'");
-       // ASK TO LENNY 
-
-    }
+    public abstract List<E> peekCollection(int n) ;
 
     @Override
-    public List<E> peekLastCollection(int n) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'peekLastCollection'");
-    }
+    public abstract List<E> peekLastCollection(int n);
 
     @Override
     public abstract E poll();
@@ -168,6 +154,9 @@ public abstract class AbstractList<E> implements List<E>, Cloneable, Collection<
 
     @Override
     public abstract boolean replace(Collection<E> collection, Collection<E> newCollection, Predicate<E> comparator);
+
+    @Override
+    public abstract boolean retain(E[] array);
 
     @Override
     public abstract boolean retain(Collection<E> collection);
@@ -276,25 +265,6 @@ public abstract class AbstractList<E> implements List<E>, Cloneable, Collection<
         
     }
 
-    public boolean isEmpty(){
-
-        try{
-            Iterator<E> iter = this.iterator();
-
-            while(iter.hasNext()){
-
-                if(iter.next() != null){
-
-                    return false;
-                }
-            }
-
-            return true;
-
-        }catch(Exception e){
-            return false;
-        }
-        
-    }
+    public abstract boolean isEmpty();
     
 }
