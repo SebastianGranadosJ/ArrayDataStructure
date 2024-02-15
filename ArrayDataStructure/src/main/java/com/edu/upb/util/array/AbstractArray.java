@@ -66,7 +66,7 @@ public abstract class AbstractArray<E> implements Collection<E>, Array<E> {
 
         while(iter.hasNext()){
 
-            if(iter.next() == element){
+            if(iter.next().equals( element)){
                 return true;
             }
 

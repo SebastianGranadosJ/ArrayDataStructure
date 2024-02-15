@@ -80,7 +80,7 @@ public class Main {
 
         System.out.println(array.toString());
 
-        System.out.println("---------------Reverse--------------");
+        System.out.println("---------------Remove Predicate--------------");
         Predicate<Integer> positivPredicate = new Predicate<Integer>() {
             @Override
             public boolean test(Integer nmr) {

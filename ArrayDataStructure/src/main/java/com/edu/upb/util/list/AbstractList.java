@@ -17,19 +17,68 @@ public abstract class AbstractList<E> implements List<E>, Cloneable, Collection<
     public abstract boolean add(E element) ;
 
     @Override
-    public abstract boolean add(E[] array);
+    public  boolean add(E[] array){
+        try{
+            for(int ii = 0; ii < array.length; ii++){
+                this.add(array[ii]);
+
+            }
+            return true; // Ask about true conditions
+
+
+        }catch(Exception e){
+            return false;
+        }
+    }
 
     @Override
-    public abstract boolean add(Collection<E> collection);
+    public  boolean add(Collection<E> collection){
+        try{
+            Iterator<E> iter = collection.iterator();
+
+            while(iter.hasNext()){
+                this.add(iter.next());
+
+            }
+            return true; // Ask about the return 
+
+        }catch(Exception e){
+            return false;
+        }
+    }
 
     @Override
     public abstract boolean addFirst(E element);
 
     @Override
-    public abstract boolean addFirst(E[] array);
+    public  boolean addFirst(E[] array){
+        try{
+
+            for(int ii = 0; ii < array.length; ii++){
+                addFirst(array[ii]);
+
+            }
+            return true;
+        }catch(Exception e){
+            return false;
+        }
+    }
 
     @Override
-    public abstract boolean addFirst(Collection<E> collection);
+    public  boolean addFirst(Collection<E> collection){
+        try{
+            Iterator<E> iter = collection.iterator();
+
+            while(iter.hasNext()){
+                addFirst(iter.next());
+
+            }
+            return true; // Ask about the return 
+
+        }catch(Exception e){
+            return false;
+        }
+    }
 
     @Override
     public E peek() {
@@ -54,12 +103,22 @@ public abstract class AbstractList<E> implements List<E>, Cloneable, Collection<
     @Override
     public E[] peekArray(int n) {
         try{    
+            if( n <= 0){
+                @SuppressWarnings("unchecked")
+                E[] arrayRet  = (E[]) new Object[1];
+                return arrayRet;
+            }
             @SuppressWarnings("unchecked")
 
             E[] array  = (E[]) new Object[amtData];
             int cnt = 0;
             Iterator<E> iter = this.iterator();
             
+            if(n <= 0){
+                return array;
+            }
+
+
             for(int ii = 0; ii < n; ii++){
                 if(iter.hasNext()){
                     array[cnt] = iter.next();
@@ -79,7 +138,13 @@ public abstract class AbstractList<E> implements List<E>, Cloneable, Collection<
 
     @Override
     public E[] peekLastArray(int n) {
-        try{    
+        try{   
+            if( n <= 0){
+                @SuppressWarnings("unchecked")
+                E[] arrayRet  = (E[]) new Object[1];
+                return arrayRet;
+            }
+
             @SuppressWarnings("unchecked")
 
             E[] array  = (E[]) new Object[amtData];
@@ -138,16 +203,82 @@ public abstract class AbstractList<E> implements List<E>, Cloneable, Collection<
     public abstract boolean remove(E element);
 
     @Override
-    public abstract boolean remove(E[] array);
+    public  boolean remove(E[] array){
+        try{
+            boolean ret = true;
+            for (E element : array) {
+                if(!remove(element)){
+                    ret = false;
+                }
+                
+            }
+            return ret;
+
+        }catch(Exception e){
+            return false;
+        }
+        
+    }
 
     @Override
-    public abstract boolean remove(Collection<E> collection);
+    public boolean remove(Collection<E> collection){
+        try{
+            Iterator<E> iter = collection.iterator();
+            boolean ret = true;
+
+            while(iter.hasNext()){
+                   if(!remove(iter.next())){
+                        ret = false;
+                   }
+            }
+            return ret;
+
+        }catch(Exception e){
+            return false;
+        }
+    }
 
     @Override
-    public abstract boolean remove(Predicate<E> filter);
+    public boolean remove(Predicate<E> filter){
+        try{
+            Iterator<E> iter = iterator();
+            boolean ret = true;
+            while(iter.hasNext()){
+                E element = iter.next();
+
+                if(filter.test(element)){
+
+                    if(!remove(element)){
+                        ret = false;
+                    }
+                    
+                }
+            }
+            return ret;
+
+        }catch(Exception e){
+            return false;
+        }
+        
+    }
 
     @Override
-    public abstract boolean replace(E element, E newElement, Predicate<E> comparator);
+    public  boolean replace(E element, E newElement, Predicate<E> comparator){
+        try{
+            if(!contains(element)){
+                return false;
+            }
+            if(comparator.test(element)){
+                set(element, newElement);
+                return true;
+            }
+            return false;
+
+
+        }catch(Exception e){
+            return false;
+        }
+    }
 
     @Override
     public abstract boolean replace(E[] element, E[] newElement, Predicate<E> comparator);
@@ -171,26 +302,10 @@ public abstract class AbstractList<E> implements List<E>, Cloneable, Collection<
     public abstract List<E> subList(E from, E to); // ASK
 
     @Override
-    public E[] toArray() {
-        try{    
-            @SuppressWarnings("unchecked")
-
-            E[] array  = (E[]) new Object[amtData];
-            int cnt = 0;
-            Iterator<E> iter = this.iterator();
-            
-           while(iter.hasNext()){
-                array[cnt] = iter.next();
-                cnt++;
-           }
-           return array;
-            
-        }catch(Exception e){
-            return null;
-        }
-    }
+    public abstract E[] toArray();
     
     public int size(){
+        
         return amtData;
     }
 
@@ -212,7 +327,7 @@ public abstract class AbstractList<E> implements List<E>, Cloneable, Collection<
 
             while(iter.hasNext()){
     
-                if(iter.next() == element){
+                if(iter.next().equals(element)){
                     return true;
                 }
     

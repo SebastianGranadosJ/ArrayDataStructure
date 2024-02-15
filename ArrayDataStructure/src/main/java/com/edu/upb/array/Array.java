@@ -86,7 +86,7 @@ public class Array<E> extends AbstractArray<E>{
     public int indexOf(E element){
     
         for(int ii = 0; ii < elements.length ; ii++){
-            if(elements[ii] == element){
+            if(elements[ii].equals(element) ){
                 return ii;
             }
         }
@@ -98,7 +98,7 @@ public class Array<E> extends AbstractArray<E>{
         int index = -1;
         
         for(int ii = 0; ii < elements.length ; ii++){
-            if(elements[ii] == element){
+            if(elements[ii].equals(element)){
                 index = ii;
             }
         }

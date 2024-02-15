@@ -204,5 +204,11 @@ public class ArrayTest {
         assertEquals(2, array.lastIndexOf(3));
 
     }
+    @Test
+    void testForEach(){
+        Array<Integer> array = new Array<>(3);
+       
+
+    }
 
 }

@@ -39,27 +39,28 @@ public class LinkedList<E> extends AbstractList<E>{
         }
     }
 
+
+
     @Override
     public boolean reverse() {
 
         try{
             LinkedList<E> reverseList  = new LinkedList<>();
-            Iterator<E> iter = iterator();
-    
-            while(iter.hasNext()){
-                reverseList.addFirst(iter.next());
+            LinkedNode<E> inode = head;
+            
+            while(inode != null){
+                reverseList.addFirst(inode.get());
+                inode = inode.getNext();
             }
 
             head = reverseList.head;
+            tail = reverseList.tail;
             return true;
 
         }catch(Exception e){
             return false;
         }
        
-        
-    
-        
     }
 
     @Override
@@ -76,7 +77,7 @@ public class LinkedList<E> extends AbstractList<E>{
             @Override
             public E next() {
 
-                if(hasNext()){
+                if(hasNext() == false){
                     throw new NoSuchElementException("No more elements in the list."); //check
                 }
                 E ret = inode.get();
@@ -110,37 +111,6 @@ public class LinkedList<E> extends AbstractList<E>{
         }
     }
 
-    @Override
-    public boolean add(E[] array) {
-        try{
-            for(int ii = 0; ii < array.length; ii++){
-                this.add(array[ii]);
-
-            }
-            return true; // Ask about true conditions
-
-
-        }catch(Exception e){
-            return false;
-        }
-    }
-
-    @Override
-    public boolean add(Collection<E> collection) {
-        try{
-            Iterator<E> iter = collection.iterator();
-
-            while(iter.hasNext()){
-                this.add(iter.next());
-
-            }
-            return true; // Ask about the return 
-
-        }catch(Exception e){
-            return false;
-        }
-
-    }
 
     @Override
     public boolean addFirst(E element) {
@@ -161,36 +131,6 @@ public class LinkedList<E> extends AbstractList<E>{
                 this.amtData++;
             }
             return true;
-
-        }catch(Exception e){
-            return false;
-        }
-    }
-
-    @Override
-    public boolean addFirst(E[] array) {
-        try{
-
-            for(int ii = 0; ii < array.length; ii++){
-                addFirst(array[ii]);
-
-            }
-            return true;
-        }catch(Exception e){
-            return false;
-        }
-    }
-
-    @Override
-    public boolean addFirst(Collection<E> collection) {
-        try{
-            Iterator<E> iter = collection.iterator();
-
-            while(iter.hasNext()){
-                addFirst(iter.next());
-
-            }
-            return true; // Ask about the return 
 
         }catch(Exception e){
             return false;
@@ -224,7 +164,7 @@ public class LinkedList<E> extends AbstractList<E>{
 
             LinkedNode<E> node = head;
 
-            while(node.getNext() != tail){
+            while(!node.getNext().equals(tail) ){
                 node = node.getNext();
             }
 
@@ -238,9 +178,16 @@ public class LinkedList<E> extends AbstractList<E>{
     }
     @Override
     public E[] pollArray(int n) {
+        
+        if( n <= 0){
+            @SuppressWarnings("unchecked")
+            E[] arrayRet  = (E[]) new Object[1];
+            return arrayRet;
+        }
         @SuppressWarnings("unchecked")
         E[] arrayRet  = (E[]) new Object[n];
 
+    
 
 
         for(int ii = 0; ii < n; ii ++){
@@ -252,10 +199,16 @@ public class LinkedList<E> extends AbstractList<E>{
 
     @Override
     public E[] pollLastArray(int n) {
+        if( n <= 0){
+            @SuppressWarnings("unchecked")
+            E[] arrayRet  = (E[]) new Object[1];
+            return arrayRet;
+        }
+
         @SuppressWarnings("unchecked")
         E[] array  = (E[]) new Object[n];
 
-        for(int ii = 0; ii < n; ii++){
+        for(int ii = n -1; ii >= 0; ii--){
             array[ii] = pollLast();
         }
         return array;
@@ -277,7 +230,7 @@ public class LinkedList<E> extends AbstractList<E>{
         LinkedList<E> list = new LinkedList<>();
 
         for(int ii = 0; ii < n; ii++){
-            list.add(this.pollLast());
+            list.addFirst(this.pollLast());
         }
         return list;
     }
@@ -294,14 +247,18 @@ public class LinkedList<E> extends AbstractList<E>{
             inode = head;
            
 
-            if(inode.get() == element){
+            if(inode.get().equals(element) ){
                 head = head.getNext();
+                if(head == null){
+                    tail = null;
+                }
+
                 amtData--;
                 return true;
             }
             
             while (inode.getNext() != null) {
-                if(inode.getNext().get() == element){
+                if(inode.getNext().get().equals(element) ){
 
                     if(inode.getNext().getNext() != null){
                         inode.setNext(inode.getNext().getNext());
@@ -309,6 +266,7 @@ public class LinkedList<E> extends AbstractList<E>{
                         return true;
                     }else{
                         inode.setNext(null);
+                        tail = inode;
                         amtData--;
                         return true;
                     }
@@ -328,83 +286,6 @@ public class LinkedList<E> extends AbstractList<E>{
         
     }
 
-    @Override
-    public boolean remove(E[] array) {
-        boolean ret = true;
-        try{
-            for (E element : array) {
-                if(!remove(element)){
-                    ret = false;
-                }
-                
-            }
-            return ret;
-
-        }catch(Exception e){
-            return false;
-        }
-        
-       
-    }
-
-    @Override
-    public boolean remove(Collection<E> collection) {
-        try{
-            Iterator<E> iter = collection.iterator();
-            boolean ret = true;
-
-            while(iter.hasNext()){
-                   if(!remove(iter.next())){
-                        ret = false;
-                   }
-            }
-            return ret;
-
-        }catch(Exception e){
-            return false;
-        }
-        
-    }
-
-    @Override
-    public boolean remove(Predicate<E> filter) { // ASK ABOUT DOCUMENTATION AND RETURN
-
-        Iterator<E> iter = iterator();
-        boolean ret = true;
-        while(iter.hasNext()){
-            E element = iter.next();
-
-            if(filter.test(element)){
-
-                if(!remove(element)){
-                    ret = false;
-                }
-                
-            }
-        }
-        return ret;
-
-    }
-
-    @Override
-    public boolean replace(E element, E newElement, Predicate<E> comparator) {
-        
-        try{
-            if(!contains(element)){
-                return false;
-            }
-            if(comparator.test(element)){
-                set(element, newElement);
-                return true;
-            }
-            return false;
-
-
-        }catch(Exception e){
-            return false;
-        }
-
-    }
 
     @Override
     public boolean replace(E[] element, E[] newElement, Predicate<E> comparator) {
@@ -463,15 +344,21 @@ public class LinkedList<E> extends AbstractList<E>{
     @Override
     public boolean retain(E[] array) {
         try{
+            LinkedList<E> retain = new LinkedList<>();
+            LinkedNode<E> inode = head;
+            retain.add(array);
+            boolean ret = this.contains(retain);
+            
+            while(inode != null){
 
-            for(int ii = 0; ii < array.length; ii++){
-
-                if(contains(array[ii]) == false){
-                    remove(array[ii]);
+                if(!retain.contains(inode.get())){
+                    remove(inode.get());
                 }
+                inode = inode.getNext();
 
             }
-            return true;
+            
+            return ret;
 
         }catch(Exception e){
             return false;
@@ -482,20 +369,19 @@ public class LinkedList<E> extends AbstractList<E>{
     @Override
     public boolean retain(Collection<E> collection) { // Do i have to return false if any of the elements were eliminated?
         try{
-            Iterator<E> iter = iterator();
-            E element;
+            LinkedNode<E> inode = head;
+            boolean ret = this.contains(collection);
+            
+            while(inode != null){
 
-            while(iter.hasNext()){
-
-                element = iter.next();
-
-                if(collection.contains(element) == false){
-                    remove(element);
+                if(!collection.contains(inode.get())){
+                    remove(inode.get());
                 }
+                inode = inode.getNext();
 
             }
-            return true;
-
+            
+            return ret;
 
         }catch(Exception e){
             return false;
@@ -512,7 +398,7 @@ public class LinkedList<E> extends AbstractList<E>{
 
             while(inode != null){
 
-                if(inode.get() == index){
+                if(inode.get().equals(index) ){
                     inode.set(element);
                     return true;
                 }
@@ -524,13 +410,52 @@ public class LinkedList<E> extends AbstractList<E>{
                 return false;
             }
     }
-
+    
+  
     @Override
     public boolean sort(ToIntFunction<E> toInt) { // All elements are remplaced with ToIntFunction and then sorted? Or arent remplaced?
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'sort'");
-    }
+        try{
+            LinkedList<E> listCopy = new LinkedList<>();
+            LinkedNode<E> inode;
+            E minor;
 
+            if(isEmpty()){
+                return false;
+            }
+
+            while(!isEmpty()){
+                inode = head;
+                minor = head.get();
+                
+                while(inode != null){
+
+                    if(toInt.applyAsInt(inode.get()) <= toInt.applyAsInt(minor)){
+                        minor = inode.get();
+                    }
+                    inode = inode.getNext();
+
+
+                }
+                System.out.print("Salio INode");
+                listCopy.add(minor);
+                remove(minor);
+
+            }
+            System.out.print("Salio isEmpty");
+            this.head = listCopy.head;
+            this.tail = listCopy.tail;
+            this.amtData = listCopy.amtData;
+
+            return true;
+        }catch(Exception e){
+            return false;
+        }
+
+
+
+        
+    }
+ 
     @Override
     public List<E> subList(E from, E to) {
 
@@ -540,11 +465,14 @@ public class LinkedList<E> extends AbstractList<E>{
 
         while(inode != null){
 
-            if(inode.get() == from){
+            if(inode.get().equals(from) ){
                 copy = true;
+                
             }
-            if(inode.get() == to){
-                copy = false;
+            if(inode.get().equals(to)){
+                if(from.equals(to) ){
+                    retList.add(inode.get());
+                }
                 return retList;
             }
             if(copy){
@@ -580,22 +508,71 @@ public class LinkedList<E> extends AbstractList<E>{
     @Override
     public List<E> peekCollection(int n) {
         LinkedList<E> retList = new LinkedList<>();
-        LinkedNode<E> inode = head;
+        Iterator<E> iter = iterator();
 
-        for(int ii = 0; ii < n; ){
-
+        for(int ii = 0; ii < n; ii++){
+            if(iter.hasNext()){
+                retList.add(iter.next());
+            } 
         }
-
-        
-
-
+        return retList;
     }
     @Override
     public List<E> peekLastCollection(int n) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'peekLastCollection'");
+        LinkedList<E> retList = new LinkedList<>();
+        Iterator<E> iter = iterator();
+
+        if(n <= 0){
+            return retList;
+        }
+
+        int toPass = this.amtData - n;
+
+        for(int ii = 0; ii < toPass; ii++){
+            if(iter.hasNext()){
+                iter.next();
+            }
+        }
+
+        while(iter.hasNext()){
+
+            retList.add(iter.next());
+        }
+        return retList;
+
     }
    
+    public String toString(){
 
+        String reString = "[";
+        LinkedNode<E> inode = head;
+
+        while(inode != null){
+            if(inode.equals(tail)){
+                reString = reString  + inode.toString();
+            }else{
+                reString = reString  + inode.toString() + ", ";
+            }
+            inode = inode.getNext();
+        }
+        reString = reString + " ]";
+        return reString;
+        
+    }
+    @Override
+    public E[] toArray() {
+        @SuppressWarnings("unchecked")
+
+        E[] array  = (E[]) new Object[amtData];
+        int cnt = 0;
+        LinkedNode<E> inode = head;
+        
+       while(inode != null){
+            array[cnt] = inode.get();
+            cnt++;
+            inode = inode.getNext();
+       }
+       return array;
+    }
 
 }
