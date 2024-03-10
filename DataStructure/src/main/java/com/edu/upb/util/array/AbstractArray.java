@@ -14,13 +14,12 @@ public abstract class AbstractArray<E> implements Collection<E>, Array<E> {
     /**
      * amtData represents the amount of data of the array.
      */
-    protected int amtData;
     /**
      * This constructor initializes an instance of the AbstractArray class with the specified amount of data.
      * @param amtData The amount of data to be initialized in the AbstractArray.            
      */
-    public AbstractArray(int amtData){
-        this.amtData = amtData;
+    public AbstractArray(){
+       
     }
 
     public void forEach(Function<E, Void> action){
@@ -118,8 +117,5 @@ public abstract class AbstractArray<E> implements Collection<E>, Array<E> {
 
     public abstract boolean reverse();
 
-    public int size(){
-        return amtData;
-    }
     
 }

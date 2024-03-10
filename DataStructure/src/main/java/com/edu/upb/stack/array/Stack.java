@@ -16,7 +16,7 @@ public class Stack<E> extends AbstractStack<E>{
     @Override
     public boolean clear() {
         top = -1;
-         return data.clear();
+        return data.clear();
            
     }
 
@@ -28,17 +28,30 @@ public class Stack<E> extends AbstractStack<E>{
 
     @Override
     public boolean reverse() {
-        return data.reverse();
+        if(data.reverse()){
+            data.defragment();
+            return true;
+        }
+
+        return false;
         
     }
 
     @Override
     public E peek() {
+        if(top == -1){
+            return null;
+        }
+
         return data.get(top);
     }
 
     @Override
     public E pop() {
+        if(top == -1){
+            return null;
+        }
+
         E toRet = data.get(top);
         data.remove(top);
         top--;
@@ -51,8 +64,20 @@ public class Stack<E> extends AbstractStack<E>{
             top ++;
             return true;
         }
-        return  false;
-          
+        return  false;       
+    }
+
+    public String toString(){
+        Array<E> temp = data;
+        return temp.toString();
+    }
+    @Override
+    public boolean isEmpty() {
+        return data.isEmpty();
+    }
+    @Override
+    public int size() {
+        return data.size();
     }
     
 }

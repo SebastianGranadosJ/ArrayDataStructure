@@ -1,16 +1,15 @@
 package linkedList.singly;
 import com.edu.upb.array.Array;
 import com.edu.upb.linkedList.singly.LinkedList;
-import com.edu.upb.quizTareas.TaskAdministrator;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
+import org.junit.jupiter.api.Test;
 
 import java.util.function.Predicate;
 import java.util.function.ToIntFunction;
 
-import org.junit.jupiter.api.Test;
+
 
 public class LinkedListTest {
     
@@ -521,6 +520,7 @@ public class LinkedListTest {
     void testReplace(){
         LinkedList<Integer> list = new LinkedList<>();
         list.add(5);
+        list.add(5);
         list.add(-3);
         list.add(-1);
         list.add(2);
@@ -541,6 +541,7 @@ public class LinkedListTest {
         assertEquals(-6, list.peekLast());
         assertEquals(false, list.replace(-1, 6, positivePredicate));
         assertEquals(false, list.replace(-1000, 6, positivePredicate));
+        assertEquals(true, list.replace(5, 0, positivePredicate));
         System.out.println(list.toString());
         
     }
@@ -639,6 +640,7 @@ public class LinkedListTest {
         Integer[] retain2 = {1, 2, 6, 7};
 
         list.add(5);
+        list.add(-3);
         list.add(-3);
         list.add(1);
         list.add(1);
@@ -761,19 +763,6 @@ public class LinkedListTest {
         System.out.println(list.toString());
 
     }  
-
-    @Test
-    void sorttask(){
-        TaskAdministrator admin = new TaskAdministrator();
-        admin.addTask("c", 1);
-        admin.addTask("b", 1);
-        admin.addTask("d", 1);
-
-        System.out.println(admin.print());
-
-
-
-    }
 
 
 }

@@ -25,6 +25,8 @@ public abstract class AbstractCollection<E> implements Collection<E>, Cloneable{
 
     public abstract int size();
 
+    public abstract boolean isEmpty();
+
     public void forEach(Function<E, Void> action){
         Iterator<E> iter = this.iterator();
 
@@ -69,22 +71,6 @@ public abstract class AbstractCollection<E> implements Collection<E>, Cloneable{
         while(iter.hasNext()){
 
             if(this.contains(iter.next()) == false){
-
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    public boolean isEmpty(){
-        Iterator<E> iter = this.iterator();
-
-        
-
-        while(iter.hasNext()){
-
-            if(iter.next() != null){
 
                 return false;
             }

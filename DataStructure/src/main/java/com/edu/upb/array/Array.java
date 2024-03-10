@@ -14,14 +14,18 @@ public class Array<E> extends AbstractArray<E>{
 
 
     private E elements[];
-    
+    private int amtData;
     /**
      * This constructor initializes an instance of the Array class with the specified amount of data.
      * @param amtData The amount of data to be initialized in the Array.            
      */
-    public Array(int amtData) {
-        super(amtData);
-        elements = (E[]) new Object[amtData];
+    public Array(int size) {
+        amtData = 0;
+        elements = (E[]) new Object[size];
+    }
+
+    public int lenght(){
+        return elements.length;
     }
     /**
      * Returns the index of the first occurence of null.
@@ -74,6 +78,11 @@ public class Array<E> extends AbstractArray<E>{
         
         try{
             int index = getAvailableIndex();
+
+            if(index == -1){
+                return false;
+            }
+
             elements[index] = element;
             this.amtData++;
             return true;
@@ -154,7 +163,7 @@ public class Array<E> extends AbstractArray<E>{
 
     @Override
     public void defragment() {
-        E[] arrayCopy = (E[]) new Object[amtData];
+        E[] arrayCopy = (E[]) new Object[elements.length];
         int cntCopy = 0;
       
             for(int ii = 0; ii < elements.length; ii++){
@@ -163,8 +172,6 @@ public class Array<E> extends AbstractArray<E>{
                     cntCopy++;
                 }
             }
-    
-            this.clear();
     
             for(int ii = 0; ii < elements.length; ii++){
                 elements[ii] = arrayCopy[ii];
@@ -184,8 +191,11 @@ public class Array<E> extends AbstractArray<E>{
 
         try{
             if(index < elements.length && index >= 0){
-                elements[index] = null;
-                return true;
+                if(elements[index] != null){
+                    elements[index] = null;
+                    amtData--;                   
+                    return true;
+                }
             }
             return false;
         }catch(Exception e){
@@ -204,8 +214,9 @@ public class Array<E> extends AbstractArray<E>{
             for(int ii = 0; ii < elements.length; ii++){
     
                 if(filter.test(elements[ii])){
-                    elements[ii] = null;
-                    ret = true;
+                    if(remove(ii)){
+                        ret = true;
+                    }
                 }
                 
             }
@@ -230,8 +241,9 @@ public class Array<E> extends AbstractArray<E>{
             }
     
             for(int ii = from; ii < top; ii++){
-                elements[ii] = null;
-                ret = true;
+                if(remove(ii)){
+                    ret = true;
+                }
             }
     
             return ret;
@@ -250,19 +262,23 @@ public class Array<E> extends AbstractArray<E>{
             boolean rt = false;
             E[] arrayCopy = (E[]) new Object[amtData];
             int top;
-            if(newDimension == amtData || newDimension <= 0){
+            if(newDimension == elements.length || newDimension <= 0){
+
                 return false;
             }
 
             
-            for(int ii = 0; ii < elements.length; ii++){
+            for(int ii = 0; ii < amtData; ii++){
                 arrayCopy[ii] = elements[ii];
+
             }
+            
 
             this.elements = (E[]) new Object[newDimension];
 
             if(arrayCopy.length > elements.length){
                 top = elements.length;
+                amtData = elements.length;
             }else{
                 top= arrayCopy.length;
             }
@@ -272,10 +288,9 @@ public class Array<E> extends AbstractArray<E>{
             }
 
             if(elements.length == newDimension){
-                amtData = newDimension;
                 rt = true;
             }
-            return rt;      
+            return rt;   
 
         }catch(Exception e){
             return false;
@@ -285,6 +300,9 @@ public class Array<E> extends AbstractArray<E>{
     public boolean set(int index, E element) {
         try{
             if( index < elements.length && index >= 0){
+                if(elements[index] == null){
+                    amtData++;
+                }
                 elements[index] = element;
                 return true;
             }
@@ -317,7 +335,7 @@ public class Array<E> extends AbstractArray<E>{
 
         try{
             boolean rt = false;
-            E[] arrayCopy = (E[]) new Object[amtData];
+            E[] arrayCopy = (E[]) new Object[elements.length];
             
             for(int ii = 0; ii < elements.length; ii++){
                 arrayCopy[ii] = elements[elements.length - 1 - ii];
@@ -356,5 +374,9 @@ public class Array<E> extends AbstractArray<E>{
             return r;
         
         
+    }
+    @Override
+    public int size() {
+        return amtData;
     }
 }

@@ -11,9 +11,9 @@ public class Stack<E> extends AbstractStack<E>{
     public Stack(){
         data = new LinkedList<>();
     }
+
     @Override
     public boolean clear() {
-       
          return data.clear();
            
     }
@@ -27,7 +27,6 @@ public class Stack<E> extends AbstractStack<E>{
     @Override
     public boolean reverse() {
         return data.reverse();
-        
     }
 
     @Override
@@ -43,8 +42,20 @@ public class Stack<E> extends AbstractStack<E>{
     @Override
     public boolean push(E element) {
       
-        return   data.addFirst(element);
+        return data.addFirst(element);
           
+    }
+    public String toString(){
+        return data.toString();
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return data.isEmpty();
+    }
+    @Override
+    public int size() {
+        return data.size();
     }
     
 }

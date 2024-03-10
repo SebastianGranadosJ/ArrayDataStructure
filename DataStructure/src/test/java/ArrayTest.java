@@ -130,9 +130,18 @@ public class ArrayTest {
     @Test
     void testDimension(){
         Array<Integer> array = new Array<>(10);
+        array.add(1);
+        array.add(1);
+        array.add(1);
+        array.add(1);
+        array.add(1);
+        array.add(1);
+        array.add(1);
+
         
-        assertEquals(true, array.dimension(2));
-        assertEquals(2, array.size());
+        assertEquals(true, array.dimension(3));
+        assertEquals(3, array.size());
+        System.out.println(array.toString());
 
     }
 

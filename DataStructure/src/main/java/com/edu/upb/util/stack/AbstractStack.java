@@ -5,12 +5,6 @@ import com.edu.upb.util.iterator.Iterator;
 
 public abstract class AbstractStack<E>  extends AbstractCollection<E> implements Stack<E>{
 
-    protected int amtData;
-
-    @Override
-    public int size(){
-        return amtData;
-    }
     @Override
     public abstract boolean clear();
 

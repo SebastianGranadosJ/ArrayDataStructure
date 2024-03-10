@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 
 import com.edu.upb.array.Array;
 import com.edu.upb.linkedList.singly.circular.LinkedList;
-import com.edu.upb.quizTareas.TaskAdministrator;
 
 public class LinkedListTest {
     @Test
@@ -770,18 +769,6 @@ public class LinkedListTest {
 
     }  
 
-    @Test
-    void sorttask(){
-        TaskAdministrator admin = new TaskAdministrator();
-        admin.addTask("c", 1);
-        admin.addTask("b", 1);
-        admin.addTask("d", 1);
-
-        System.out.println(admin.print());
-
-
-
-    }
 
 
 }

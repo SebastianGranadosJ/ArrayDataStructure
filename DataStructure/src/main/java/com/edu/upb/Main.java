@@ -1,108 +1,56 @@
 package com.edu.upb;
 
-import java.util.function.Predicate;
-
-import com.edu.upb.array.Array;
+import com.edu.upb.util.scan.Scan;
 
 public class Main {
     public static void main(String[] args) {
-        Array<Integer> array = new Array<>(10);
 
-        System.out.println("--------------Add---------------");
-        array.add(1);
-        array.add(2);
-        array.add(3);
+        System.out.println("Ingrese un input: ");
 
-        System.out.println(array.toString());
+        String str = Scan.getStringInput();
 
-        System.out.println("--------------Add testing with Nulls---------------");
+        System.out.println("Input: " + str);
 
-        array.set(1, null);
-        System.out.println(array.toString());
-        array.add(123);
-        System.out.println(array.toString());
-        
-        System.out.println("---------------Add with array--------------");
-        Integer[] inters = {0,0, 0};
-        array.add(1, inters);
-        System.out.println(array.toString());
+        //--------
 
-        System.out.println("---------------Desgrafment--------------");
-        array.set(9, 12);
-        array.set(7, 3);
-        array.set(5, 9);
-        System.out.println(array.toString());
-        array.defragment();
-        System.out.println(array.toString());
+        System.out.println("Ingrese un input: ");
 
-        System.out.println("---------------Remove--------------");
-        array.remove(1);
-        System.out.println(array.toString());
+        int nmr = Scan.getIntInput();
 
-        System.out.println("---------------Remove from to--------------");
-        array.remove(2, 4);
-        System.out.println(array.toString());
+        System.out.println("Input: " + nmr);
 
-        System.out.println("---------------Dimension--------------");
-        array.dimension(2);
-        System.out.println(array.toString());
-        array.dimension(12);
-        System.out.println(array.toString());
-        
+        System.out.println(10 + nmr);
 
-        System.out.println("---------------Clear--------------");
-        
-        array.add(1);
-        array.add(1);
-        array.add(1);
-        array.add(1);
-        array.add(1);
-        array.add(1);
+        //--------
 
-        System.out.println(array.toString());
 
-        array.clear();
+        System.out.println("Ingrese un input: ");
 
-        System.out.println(array.toString());
+        double dou = Scan.getIntInput();
 
-        System.out.println("---------------Reverse--------------");
-        
-        array.add(1);
-        array.add(2);
-        array.add(3);
-        array.add(4);
-        array.add(5);
-        array.add(6);
+        System.out.println("Input: " + dou);
 
-        System.out.println(array.toString());
+        System.out.println(10 + dou);
 
-        array.reverse();
 
-        System.out.println(array.toString());
+        //--------
 
-        System.out.println("---------------Remove Predicate--------------");
-        Predicate<Integer> positivPredicate = new Predicate<Integer>() {
-            @Override
-            public boolean test(Integer nmr) {
-                if(nmr == null){
-                    return false;
-                }
 
-                return nmr > 0;
-            }
-        };
+        System.out.println("Ingrese un input : ");
 
-        array.add(-1);
-        array.add(-100);
-        array.add(-2);
-        array.add(-1);
-       
+        int nmr2 = Scan.getValidatedIntInput();
 
-        System.out.println(array.toString());
-        array.remove(positivPredicate);
+        System.out.println("Input: " + nmr2);
 
-        System.out.println(array.toString());
-        
+        System.out.println(10 + nmr2);
+
+        //--------
+
+        System.out.println("Ingrese un input(char): ");
+
+        char c = Scan.getCharInput();
+
+        System.out.println("Input: " + c);
 
     }
 }

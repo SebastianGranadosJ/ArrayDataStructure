@@ -10,21 +10,10 @@ import com.edu.upb.util.list.List;
 
 public class LinkedList<E> extends AbstractList<E>{
     
-    private LinkedNode<E> head;
-    private LinkedNode<E> tail;
+    protected LinkedNode<E> head;
+    protected LinkedNode<E> tail;
     
-    public LinkedNode<E> getHead() {
-        return head;
-    }
-    public void setHead(LinkedNode<E> head) {
-        this.head = head;
-    }
-    public LinkedNode<E> getTail() {
-        return tail;
-    }
-    public void setTail(LinkedNode<E> tail) {
-        this.tail = tail;
-    }
+
     public LinkedList(){
         super();
         head = null;
@@ -351,9 +340,6 @@ public class LinkedList<E> extends AbstractList<E>{
         }catch(Exception e){
             return false;
         }
-
-
-
         
     }
  
