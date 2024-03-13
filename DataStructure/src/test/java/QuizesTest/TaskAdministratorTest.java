@@ -3,8 +3,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import com.edu.upb.quizes.quizTask.Task;
-import com.edu.upb.quizes.quizTask.TaskAdministrator;
+import com.edu.upb.exercises.quizes.quizTask.Task;
+import com.edu.upb.exercises.quizes.quizTask.TaskAdministrator;
 import com.edu.upb.util.array.Array;
 
 public class TaskAdministratorTest {

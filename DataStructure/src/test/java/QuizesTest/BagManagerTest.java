@@ -4,10 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+import com.edu.upb.exercises.quizes.quizBag.BagManager;
+import com.edu.upb.exercises.quizes.quizBag.Item;
+import com.edu.upb.exercises.quizes.quizBag.Type;
 import com.edu.upb.linkedList.singly.LinkedList;
-import com.edu.upb.quizes.quizBag.BagManager;
-import com.edu.upb.quizes.quizBag.Item;
-import com.edu.upb.quizes.quizBag.Type;
 
 
 public class BagManagerTest {
