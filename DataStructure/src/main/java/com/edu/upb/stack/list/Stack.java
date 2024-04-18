@@ -57,5 +57,9 @@ public class Stack<E> extends AbstractStack<E>{
     public int size() {
         return data.size();
     }
+    @Override
+    public boolean contains(E element){
+        return data.contains(element);
+    }
     
 }

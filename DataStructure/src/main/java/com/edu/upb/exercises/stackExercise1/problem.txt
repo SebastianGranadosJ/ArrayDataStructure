@@ -1,0 +1,12 @@
+Escribir un programa en el que se manejen un total de n = 5 pilas: P1, P2, P3, P4
+y P5. La entrada de datos serán pares de enteros (i,j) tal que 1 ≤ abs(i) ≤ n. De
+tal forma que el criterio de selección de pila será:
+• Si i es positivo, debe insertarse el elemento j en la pila Pi.
+• Si i es negativo, debe eliminarse el elemento j de la pila Pi.
+• Si i es cero, fin del proceso de entrada.
+Los datos de entrada se introducen por teclado. Cuando termina el proceso el programa debe escribir el contenido de la n Pilas en pantalla.
+9.5. Modificar el programa del Problema 9.4 para que la entrada sean triplos de números
+enteros (i,j,k), donde i, j tienen el mismo significado que en 9.4, y k es un número
+entero que puede tomar los valores –1, 0 con este significado:
+• -1, hay que borrar todos los elementos de la pila.
+• 0, el proceso es el indicado en el Problema 9.4 con i y j

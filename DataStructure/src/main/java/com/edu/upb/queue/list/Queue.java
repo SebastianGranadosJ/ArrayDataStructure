@@ -53,6 +53,6 @@ public class Queue<E> extends AbstractQueue<E>{
         return list.isEmpty();
     }
     public String toString(){
-        return list.toString() ;
+        return "First " + list.toString() + "Last" ;
     }
 }

@@ -362,7 +362,12 @@ public class Array<E> extends AbstractArray<E>{
             int noComma = elements.length - 1;
     
             for (int ii = 0; ii < elements.length; ii++){
-                r += elements[ii];
+                if(elements[ii] != null){
+                    r += elements[ii].toString();
+                }else{
+                    r += elements[ii];
+                }
+                
     
                 if(ii < noComma){
                     r+= ", ";

@@ -101,7 +101,7 @@ public class PriorityQueue<E> extends AbstractPriorityQueue<E>{
             return false;
         }
     }
-
+ 
     @Override
     public Iterator<E> iterator() {
         return new Iterator<E>() {
@@ -135,7 +135,7 @@ public class PriorityQueue<E> extends AbstractPriorityQueue<E>{
 
         };
     }
-
+     
     @Override
     public int size() {
         int size = 0;

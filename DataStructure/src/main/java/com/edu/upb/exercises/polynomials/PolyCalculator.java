@@ -1,4 +1,4 @@
-package com.edu.upb.exercises.quizes.polynomials;
+package com.edu.upb.exercises.polynomials;
 
 import com.edu.upb.linkedList.doubly.LinkedList;
 import com.edu.upb.util.iterator.Iterator;

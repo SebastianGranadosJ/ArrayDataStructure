@@ -80,6 +80,30 @@ public class LinkedList<E> extends AbstractList<E>{
 
         };
     }
+    public Iterator<E> iteratorInverse() {
+         return new Iterator<E>() {
+            LinkedNode<E> inode = tail; 
+
+            @Override
+            public boolean hasNext() {
+
+                return inode != null;
+            }
+
+            @Override
+            public E next() {
+
+                if(hasNext() == false){
+                    throw new NoSuchElementException("No more elements in the list."); //check
+                }
+                E ret = inode.get();
+                inode = inode.getPrev();
+                return ret;
+            }
+            
+
+        };
+    }
 
     @Override
     public boolean add(E element) {

@@ -8,7 +8,6 @@ import java.io.IOException;
 
 import com.edu.upb.linkedList.doubly.LinkedList;
 import com.edu.upb.util.iterator.Iterator;
-import com.edu.upb.util.list.List;
 
 public class TxtManager {
 
@@ -39,7 +38,7 @@ public class TxtManager {
         }
     }
 
-    public static List<Integer> readInts(String filePath) {
+    public static LinkedList<Integer> readInts(String filePath) {
         LinkedList<Integer> numbers = new LinkedList<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
@@ -70,6 +69,15 @@ public class TxtManager {
     public static void writeInt(String filePath, int number) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
             writer.write(Integer.toString(number));
+            writer.newLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void writeDouble(String filePath, double number) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+            writer.write(Double.toString(number));
             writer.newLine();
         } catch (IOException e) {
             e.printStackTrace();

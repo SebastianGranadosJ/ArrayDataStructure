@@ -2,7 +2,7 @@ package exercises;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
-import com.edu.upb.exercises.quizes.polynomials.PolyCalculator;
+import com.edu.upb.exercises.polynomials.PolyCalculator;
 import com.edu.upb.linkedList.doubly.LinkedList;
 
 public class PolyCalculatorTest {

@@ -198,6 +198,7 @@ public class ArrayTest {
         array.add(1);
         array.add(3);
 
+
         assertEquals(0, array.indexOf(1));
         assertEquals(2, array.indexOf(3));
 
